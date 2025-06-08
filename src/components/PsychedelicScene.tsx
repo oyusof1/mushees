@@ -61,7 +61,7 @@ export const PsychedelicScene = () => {
       <div className="absolute inset-0 pointer-events-none z-10 flex items-center justify-center">
         <div className="text-center pointer-events-auto">
           <h1 className="text-6xl md:text-8xl font-bold mb-4 psychedelic-text animate-pulse-glow">
-            COSMIC SHROOMS
+            MUSHEES
           </h1>
           <p className="text-xl md:text-2xl text-purple-300 animate-float">
             Journey into the mystical realm

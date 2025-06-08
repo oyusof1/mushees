@@ -1,4 +1,3 @@
-
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, Float, Sparkles } from '@react-three/drei';
 import { MushroomGroup } from './MushroomGroup';
@@ -8,7 +7,7 @@ export const PsychedelicScene = () => {
   return (
     <div className="w-full h-screen relative">
       <Canvas
-        camera={{ position: [0, 0, 10], fov: 60 }}
+        camera={{ position: [5, 3, 8], fov: 60 }}
         className="w-full h-full"
       >
         <Environment preset="night" />

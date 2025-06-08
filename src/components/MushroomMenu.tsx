@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -71,13 +70,23 @@ const getPotencyColor = (potency: string) => {
 
 export const MushroomMenu = () => {
   return (
-    <section className="py-20 px-4 min-h-screen bg-gradient-to-b from-purple-900/20 to-black/40">
-      <div className="container mx-auto max-w-7xl">
+    <section className="py-20 px-4 min-h-screen relative overflow-hidden">
+      {/* Enhanced background with subtle patterns */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-950/40 to-black"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-900/10 to-transparent"></div>
+      
+      {/* Subtle animated background elements */}
+      <div className="absolute top-20 left-10 w-32 h-32 bg-purple-500/5 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-48 h-48 bg-cyan-500/5 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-pink-500/5 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      
+      <div className="container mx-auto max-w-7xl relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 psychedelic-text">
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 text-white">
             Sacred Menu
           </h2>
-          <p className="text-xl text-purple-300 max-w-2xl mx-auto">
+          <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto mb-6 rounded-full"></div>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
             Carefully curated varieties for your consciousness exploration journey
           </p>
         </div>

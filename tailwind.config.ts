@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,21 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				psychedelic: {
+					purple: '#8B5CF6',
+					pink: '#EC4899',
+					cyan: '#06B6D4',
+					gold: '#F59E0B',
+					'deep-purple': '#4C1D95',
+					'hot-pink': '#EC4899',
+					'electric-blue': '#3B82F6',
+					'neon-green': '#10B981'
 				}
+			},
+			backgroundImage: {
+				'cosmic-gradient': 'linear-gradient(45deg, #4C1D95, #8B5CF6, #EC4899, #06B6D4)',
+				'psychedelic-radial': 'radial-gradient(circle, #8B5CF6, #4C1D95, #1F2937)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +99,38 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-20px)' }
+				},
+				'pulse-glow': {
+					'0%, 100%': { 
+						boxShadow: '0 0 20px rgba(139, 92, 246, 0.5)',
+						transform: 'scale(1)'
+					},
+					'50%': { 
+						boxShadow: '0 0 40px rgba(139, 92, 246, 0.8)',
+						transform: 'scale(1.05)'
+					}
+				},
+				'color-shift': {
+					'0%': { filter: 'hue-rotate(0deg)' },
+					'100%': { filter: 'hue-rotate(360deg)' }
+				},
+				'drift': {
+					'0%, 100%': { transform: 'translate(0px, 0px) rotate(0deg)' },
+					'33%': { transform: 'translate(30px, -30px) rotate(120deg)' },
+					'66%': { transform: 'translate(-20px, 20px) rotate(240deg)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 6s ease-in-out infinite',
+				'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+				'color-shift': 'color-shift 8s linear infinite',
+				'drift': 'drift 15s ease-in-out infinite'
 			}
 		}
 	},

@@ -57,6 +57,12 @@
     background: linear-gradient(45deg, #000000, #0a0a0a, #1a0a1a, #2d1b69);
     background-attachment: fixed;
   }
+
+  /* Mobile viewport and safe area support */
+  html {
+    /* Support for iOS safe areas */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
 }
 
 @layer components {
@@ -84,5 +90,14 @@
     background: rgba(139, 92, 246, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(139, 92, 246, 0.3);
+  }
+
+  /* Mobile-friendly utilities */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
   }
 }

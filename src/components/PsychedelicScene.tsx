@@ -2,11 +2,12 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, Float, Sparkles } from '@react-three/drei';
 import { MushroomGroup } from './MushroomGroup';
 import { ParticleField } from './ParticleField';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { siFacebook, siInstagram } from 'simple-icons';
 
 export const PsychedelicScene = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showScrollArrow, setShowScrollArrow] = useState(true);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -16,13 +17,28 @@ export const PsychedelicScene = () => {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const homeSection = document.getElementById('home');
+      if (homeSection) {
+        const rect = homeSection.getBoundingClientRect();
+        setShowScrollArrow(rect.bottom > window.innerHeight * 0.9);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial state
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="w-full h-screen relative" id="home">
       {/* Hamburger Menu */}
-      <div className="absolute top-6 left-6 z-20">
+      <div className="absolute top-6 left-6 z-20 pt-safe">
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="w-12 h-12 bg-black/50 backdrop-blur-sm rounded-lg border border-white/20 flex flex-col justify-center items-center space-y-1 hover:bg-black/70 transition-all"
+          className="w-12 h-12 bg-black/50 backdrop-blur-sm rounded-lg border border-white/20 flex flex-col justify-center items-center space-y-1 hover:bg-black/70 transition-all touch-manipulation active:scale-95"
         >
           <div className={`w-6 h-0.5 bg-white transition-all ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
           <div className={`w-6 h-0.5 bg-white transition-all ${isMenuOpen ? 'opacity-0' : ''}`}></div>
@@ -35,25 +51,25 @@ export const PsychedelicScene = () => {
             <nav className="space-y-3">
               <button
                 onClick={() => scrollToSection('home')}
-                className="block w-full text-left text-white hover:text-cyan-400 transition-colors"
+                className="block w-full text-left text-white hover:text-cyan-400 transition-colors touch-manipulation py-2 px-2 rounded hover:bg-white/10"
               >
                 🏠 Home
               </button>
               <button
                 onClick={() => scrollToSection('menu')}
-                className="block w-full text-left text-white hover:text-cyan-400 transition-colors"
+                className="block w-full text-left text-white hover:text-cyan-400 transition-colors touch-manipulation py-2 px-2 rounded hover:bg-white/10"
               >
                 🍄 Menu
               </button>
               <button
                 onClick={() => scrollToSection('specialty-products')}
-                className="block w-full text-left text-white hover:text-cyan-400 transition-colors"
+                className="block w-full text-left text-white hover:text-cyan-400 transition-colors touch-manipulation py-2 px-2 rounded hover:bg-white/10"
               >
                 ✨ Specialty Products
               </button>
               <button
                 onClick={() => scrollToSection('location')}
-                className="block w-full text-left text-white hover:text-cyan-400 transition-colors"
+                className="block w-full text-left text-white hover:text-cyan-400 transition-colors touch-manipulation py-2 px-2 rounded hover:bg-white/10"
               >
                 📍 Location
               </button>
@@ -63,12 +79,12 @@ export const PsychedelicScene = () => {
       </div>
 
       {/* Social Links */}
-      <div className="absolute top-6 right-6 z-20 flex space-x-3">
+      <div className="absolute top-6 right-6 z-20 flex space-x-3 pt-safe">
         <a
           href="https://www.facebook.com/profile.php?id=61575899121353&mibextid=wwXIfr&rdid=f1spfnAE4mQs1Xn7&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F168iESgm5T%2F%3Fmibextid%3DwwXIfr#"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-12 h-12 bg-black/50 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center hover:bg-black/70 transition-all hover:scale-110"
+          className="w-12 h-12 bg-black/50 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center hover:bg-black/70 transition-all hover:scale-110 touch-manipulation active:scale-95"
         >
           <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
             <path d={siFacebook.path} />
@@ -78,7 +94,7 @@ export const PsychedelicScene = () => {
           href="https://www.instagram.com/mush.ees?igsh=MXF3dHhoMTBhM2trbQ=="
           target="_blank"
           rel="noopener noreferrer"
-          className="w-12 h-12 bg-black/50 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center hover:bg-black/70 transition-all hover:scale-110"
+          className="w-12 h-12 bg-black/50 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center hover:bg-black/70 transition-all hover:scale-110 touch-manipulation active:scale-95"
         >
           <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
             <path d={siInstagram.path} />
@@ -161,21 +177,26 @@ export const PsychedelicScene = () => {
       </div>
 
       {/* Scroll Down Arrow */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 pointer-events-auto">
-        <button
-          onClick={() => scrollToSection('menu')}
-          className="w-12 h-12 bg-black/50 backdrop-blur-sm rounded-full border border-white/20 flex items-center justify-center hover:bg-black/70 transition-all animate-bounce"
-        >
-          <svg 
-            className="w-6 h-6 text-white" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
+      {showScrollArrow && (
+        <div className="fixed bottom-16 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20 pointer-events-auto transition-opacity duration-300">
+          <button
+            onClick={() => scrollToSection('menu')}
+            className="w-12 h-12 bg-black/50 backdrop-blur-sm rounded-full border border-white/20 flex items-center justify-center hover:bg-black/70 transition-all animate-bounce touch-manipulation active:scale-95"
+            style={{
+              marginBottom: 'env(safe-area-inset-bottom, 0px)'
+            }}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </button>
-      </div>
+            <svg 
+              className="w-6 h-6 text-white" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

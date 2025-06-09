@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://mushees.com/</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://mushees.com/IMG_3809.JPG</image:loc>
+      <image:title>Mushees Ann Arbor - Premium Sacred Mushrooms</image:title>
+      <image:caption>Premium quality sacred mushrooms for consciousness exploration in Ann Arbor, Michigan</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mushees.com/penis%20envy.jpeg</image:loc>
+      <image:title>Penis Envy Mushrooms</image:title>
+      <image:caption>Premium Penis Envy psilocybin mushrooms</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mushees.com/albino%20roller%20coaster.jpeg</image:loc>
+      <image:title>Albino Roller Coaster Mushrooms</image:title>
+      <image:caption>Albino Roller Coaster psilocybin mushrooms</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mushees.com/thrasher%20penis%20envy.jpeg</image:loc>
+      <image:title>Thrasher Penis Envy Mushrooms</image:title>
+      <image:caption>Thrasher Penis Envy psilocybin mushrooms</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mushees.com/hillbbilly%20pumpkins.jpeg</image:loc>
+      <image:title>Hillbilly Pumpkins Mushrooms</image:title>
+      <image:caption>Hillbilly Pumpkins psilocybin mushrooms</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mushees.com/trippy%20treats.jpeg</image:loc>
+      <image:title>Trippy Treats</image:title>
+      <image:caption>Trippy treats and psilocybin edibles</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mushees.com/super%20juice.jpeg</image:loc>
+      <image:title>Super Juice</image:title>
+      <image:caption>Super juice psilocybin beverages</image:caption>
+    </image:image>
+  </url>
+
+</urlset> 

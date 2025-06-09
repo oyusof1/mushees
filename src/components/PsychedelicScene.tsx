@@ -155,15 +155,14 @@ export const PsychedelicScene = () => {
       {/* Overlay content */}
       <div className="absolute inset-0 pointer-events-none z-10 flex items-center justify-center">
         <div className="text-center pointer-events-auto">
-          <h1 
-            className="text-6xl md:text-8xl font-bold mb-4"
+          <img 
+            src="/mushees logo.png" 
+            alt="Mushees Logo" 
+            className="h-32 md:h-48 lg:h-56 w-auto mb-4 mx-auto"
             style={{ 
-              color: '#FFFFFF',
-              textShadow: '0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.4)'
+              filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.4))'
             }}
-          >
-            MUSHEES
-          </h1>
+          />
           <p 
             className="text-xl md:text-2xl"
             style={{ 

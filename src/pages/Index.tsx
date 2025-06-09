@@ -2,29 +2,44 @@
 import { PsychedelicScene } from "@/components/PsychedelicScene";
 import { MushroomMenu } from "@/components/MushroomMenu";
 import { Location } from "@/components/Location";
+import { SEO, seoConfigs } from "@/components/SEO";
 import { MapPin } from 'lucide-react';
 import { siFacebook, siInstagram, siGoogle, siApple } from 'simple-icons';
 
 const Index = () => {
   return (
     <div className="min-h-screen">
+      {/* SEO Component */}
+      <SEO {...seoConfigs.homepage} />
+      
       {/* Hero Section with 3D Scene */}
       <PsychedelicScene />
       
-      {/* Menu Section */}
-      <MushroomMenu />
-      
-      {/* Location Section */}
-      <Location />
+      {/* Main Content */}
+      <main>
+        {/* Menu Section */}
+        <section id="menu" aria-label="Sacred Mushroom Menu">
+          <MushroomMenu />
+        </section>
+        
+        {/* Location Section */}
+        <section id="location" aria-label="Store Location and Contact">
+          <Location />
+        </section>
+      </main>
       
       {/* Footer */}
-      <footer className="bg-black/80 backdrop-blur-sm py-12 border-t border-white/10">
+      <footer className="bg-black/80 backdrop-blur-sm py-12 border-t border-white/10" role="contentinfo">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             
             {/* Brand & Mission */}
             <div className="lg:col-span-2">
-              <h3 className="text-2xl font-bold text-white mb-4">MUSHEES</h3>
+              <img 
+                src="/mushees logo.png" 
+                alt="Mushees Logo" 
+                className="h-20 w-auto mb-4"
+              />
               <p className="text-purple-300 mb-4 leading-relaxed">
                 Journey into the mystical realm of consciousness exploration. We provide premium quality products for your spiritual and therapeutic needs.
               </p>

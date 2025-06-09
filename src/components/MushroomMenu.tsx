@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import { useState, useCallback, useMemo } from "react";
 
 const mushroomVarieties = [
   {
@@ -130,6 +130,52 @@ const getTierColor = (tier: string) => {
   }
 };
 
+// Lazy loading image component
+const LazyImage = ({ src, alt, className, onClick }: { 
+  src: string; 
+  alt: string; 
+  className?: string; 
+  onClick?: () => void;
+}) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  const handleLoad = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const handleError = useCallback(() => {
+    setHasError(true);
+  }, []);
+
+  if (hasError) {
+    return (
+      <div className={`${className} bg-gray-800 flex items-center justify-center`}>
+        <span className="text-gray-400 text-xs">Image unavailable</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className={className} onClick={onClick}>
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-gray-800 animate-pulse rounded-full" />
+      )}
+      <img
+        src={src}
+        alt={alt}
+        className={`w-full h-full object-cover transition-opacity duration-300 ${
+          isLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
+        loading="lazy"
+        onLoad={handleLoad}
+        onError={handleError}
+        decoding="async"
+      />
+    </div>
+  );
+};
+
 export const MushroomMenu = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -168,7 +214,7 @@ export const MushroomMenu = () => {
                     className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden shadow-lg border-2 border-white/20 cursor-pointer hover:scale-110 transition-transform"
                     onClick={() => setSelectedImage(mushroom.image)}
                   >
-                    <img 
+                    <LazyImage 
                       src={mushroom.image} 
                       alt={mushroom.name}
                       className="w-full h-full object-cover"
@@ -274,13 +320,13 @@ export const MushroomMenu = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             
             {/* Trippy Treats */}
-            <Card className="mushroom-card glow-effect border-2 border-pink-500/30 hover:border-pink-400/60 transition-all duration-500">
+            <Card className="mushroom-card glow-effect border-2 border-pink-500/30 hover:border-pink-400/60 transition-all duration-500 mushroom-card hover:scale-105 transition-all duration-1000 animate-float glow-effect border-2">
               <CardHeader className="text-center">
                 <div 
                   className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden shadow-lg border-2 border-white/20 cursor-pointer hover:scale-110 transition-transform"
                   onClick={() => setSelectedImage("/trippy treats.jpeg")}
                 >
-                  <img 
+                  <LazyImage 
                     src="/trippy treats.jpeg" 
                     alt="Trippy Treats"
                     className="w-full h-full object-cover"
@@ -308,13 +354,13 @@ export const MushroomMenu = () => {
             </Card>
 
             {/* Super Juice */}
-            <Card className="mushroom-card glow-effect border-2 border-cyan-500/30 hover:border-cyan-400/60 transition-all duration-500">
+            <Card className="mushroom-card glow-effect border-2 border-pink-500/30 hover:border-pink-400/60 transition-all mushroom-card hover:scale-105 duration-1000 animate-float glow-effect">
               <CardHeader className="text-center">
                 <div 
                   className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden shadow-lg border-2 border-white/20 cursor-pointer hover:scale-110 transition-transform"
                   onClick={() => setSelectedImage("/super juice.jpeg")}
                 >
-                  <img 
+                  <LazyImage 
                     src="/super juice.jpeg" 
                     alt="Super Juice"
                     className="w-full h-full object-cover"
@@ -360,11 +406,11 @@ export const MushroomMenu = () => {
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-4xl max-h-[90vh] w-full h-full flex items-center justify-center">
-            <img 
-              src={selectedImage} 
-              alt="Enlarged mushroom strain"
-              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
+                          <img 
+                src={selectedImage} 
+                alt="Enlarged mushroom strain"
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
             />
             <button 
               className="absolute top-4 right-4 text-white text-2xl bg-black/50 rounded-full w-10 h-10 flex items-center justify-center hover:bg-black/70 transition-colors"

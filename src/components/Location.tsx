@@ -90,7 +90,7 @@ export const Location = () => {
                 <p>🕐 <strong className="text-white">Hours:</strong> 12pm-7pm Wed-Sun</p>
                 <p>🔞 <strong className="text-white">Age Requirement:</strong> 21+ only</p>
                 <p>🆔 <strong className="text-white">ID Required:</strong> Valid government ID</p>
-                <p>💳 <strong className="text-white">Payment:</strong> Cash and card accepted</p>
+                <p>💵 <strong className="text-white">Payment:</strong> Cash only</p>
               </div>
             </div>
           </div>

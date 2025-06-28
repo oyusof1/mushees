@@ -1,114 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useState, useCallback, useMemo } from "react";
-
-const mushroomVarieties = [
-  {
-    name: "Thrasher Penis Envy",
-    scientific: "Psilocybe cubensis var.",
-    description: "An even more potent variant of the classic Penis Envy strain",
-    effects: ["Intense Visuals", "Deep Introspection", "Ego Dissolution"],
-    potency: "Very High",
-    duration: "6-8 hours",
-    color: "from-purple-600 to-pink-600",
-    image: "/thrasher penis envy.jpeg",
-    tier: "MegaBooms",
-    pricing: {
-      "1/8": "$35",
-      "1/4": "$50",
-      "1/2": "$85", 
-      "Oz": "$160"
-    }
-  },
-  {
-    name: "Penis Envy",
-    scientific: "Psilocybe cubensis var.",
-    description: "One of the most potent varieties for experienced journeyers",
-    effects: ["Intense Body High", "Reality Shifts", "Spiritual Awakening"],
-    potency: "Very High",
-    duration: "5-7 hours",
-    color: "from-purple-400 to-pink-500",
-    image: "/penis envy.jpeg",
-    tier: "Boomers",
-    pricing: {
-      "1/8": "$30",
-      "1/4": "$45", 
-      "1/2": "$75",
-      "Oz": "$140"
-    }
-  },
- 
-  {
-    name: "Albino Roller Coaster",
-    scientific: "Psilocybe cubensis albino",
-    description: "Rare albino variety with intense, wave-like experiences",
-    effects: ["Mental Clarity", "Emotional Waves", "Visual Distortions"],
-    potency: "High",
-    duration: "5-7 hours",
-    color: "from-white to-gray-300",
-    image: "/albino roller coaster.jpeg",
-    tier: "Medium Tier",
-    pricing: {
-      "1/8": "$25",
-      "1/4": "$40",
-      "1/2": "$70",
-      "Oz": "$130"
-    }
-  },
-  {
-    name: "Hillbilly Pumpkins",
-    scientific: "Psilocybe cubensis",
-    description: "Unique orange-capped variety with earthy, grounding effects",
-    effects: ["Nature Connection", "Grounding Energy", "Creative Flow"],
-    potency: "Moderate-High",
-    duration: "4-6 hours",
-    color: "from-orange-400 to-yellow-500",
-    image: "/hillbbilly pumpkins.jpeg",
-    tier: "Light Tier",
-    pricing: {
-      "1/8": "$20",
-      "1/4": "$35",
-      "1/2": "$60",
-      "Oz": "$110"
-    }
-  },
-  {
-    name: "Golden Teachers",
-    scientific: "Psilocybe cubensis",
-    description: "Perfect for beginners seeking wisdom and introspection",
-    effects: ["Euphoria", "Visual Enhancement", "Deep Insights"],
-    potency: "Moderate",
-    duration: "4-6 hours",
-    color: "from-yellow-400 to-orange-500",
-    image: null,
-    redacted: {
-      name: "████ ███████",
-      scientific: "████████ ████████",
-      description: "████████ ███ ██████████ ████████ ██████ ███ ████████████",
-      effects: ["████████", "██████ ███████████", "████ ████████"],
-      potency: "████████",
-      duration: "█-█ █████"
-    }
-  },
-  {
-    name: "Blue Meanies",
-    scientific: "Panaeolus cyanescens",
-    description: "Intense visuals and profound consciousness expansion",
-    effects: ["Strong Visuals", "Ego Dissolution", "Time Distortion"],
-    potency: "High",
-    duration: "6-8 hours",
-    color: "from-blue-400 to-cyan-500",
-    image: null,
-    redacted: {
-      name: "████ ███████",
-      scientific: "█████████ ██████████",
-      description: "███████ ███████ ███ ████████ ████████████ █████████",
-      effects: ["██████ ███████", "███ ███████████", "████ ██████████"],
-      potency: "████",
-      duration: "█-█ █████"
-    }
-  }
-];
+import { useSupabaseMushrooms } from "@/contexts/SupabaseMushroomContext";
 
 const getPotencyColor = (potency: string) => {
   switch (potency) {
@@ -177,7 +70,25 @@ const LazyImage = ({ src, alt, className, onClick }: {
 };
 
 export const MushroomMenu = () => {
+  const { mushrooms, loading } = useSupabaseMushrooms();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  
+  // Filter only active mushrooms for the public menu
+  const activeMushrooms = useMemo(() => 
+    mushrooms.filter(mushroom => mushroom.isActive), 
+    [mushrooms]
+  );
+
+  // Separate mushrooms and specialty products
+  const mushroomVarieties = useMemo(() => 
+    activeMushrooms.filter(m => m.category === 'mushroom'), 
+    [activeMushrooms]
+  );
+  
+  const specialtyProducts = useMemo(() => 
+    activeMushrooms.filter(m => m.category === 'specialty'), 
+    [activeMushrooms]
+  );
 
   return (
     <section id="menu" className="py-20 px-4 min-h-screen relative overflow-hidden">
@@ -201,10 +112,20 @@ export const MushroomMenu = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {mushroomVarieties.map((mushroom, index) => (
+        {loading ? (
+          <div className="flex justify-center items-center py-12">
+            <div className="text-center">
+              <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-purple-300">Loading mushroom varieties...</p>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* Mushroom Varieties Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {mushroomVarieties.map((mushroom, index) => (
             <Card 
-              key={index} 
+              key={mushroom.id} 
               className={`mushroom-card hover:scale-105 transition-all duration-1000 animate-float glow-effect border-2 ${!mushroom.image ? 'border-yellow-500/40 hover:border-yellow-400/60' : 'border-purple-500/30 hover:border-purple-400/60'} ${!mushroom.image ? 'opacity-95' : ''}`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
@@ -311,83 +232,99 @@ export const MushroomMenu = () => {
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
-        
-        {/* Additional Products */}
-        <div id="specialty-products" className="mt-16 mb-16">
-          <h3 className="text-3xl font-bold text-white text-center mb-8">Specialty Products</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            ))}
+            </div>
             
-            {/* Trippy Treats */}
-            <Card className="mushroom-card glow-effect border-2 border-pink-500/30 hover:border-pink-400/60 transition-all duration-500 mushroom-card hover:scale-105 transition-all duration-1000 animate-float glow-effect border-2">
-              <CardHeader className="text-center">
-                <div 
-                  className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden shadow-lg border-2 border-white/20 cursor-pointer hover:scale-110 transition-transform"
-                  onClick={() => setSelectedImage("/trippy treats.jpeg")}
-                >
-                  <LazyImage 
-                    src="/trippy treats.jpeg" 
-                    alt="Trippy Treats"
-                    className="w-full h-full object-cover"
-                  />
+            {/* Specialty Products Section */}
+            {specialtyProducts.length > 0 && (
+              <div className="mt-16">
+                <div className="text-center mb-12">
+                  <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                    Specialty Products
+                  </h3>
+                  <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Premium edibles and concentrates for a unique journey
+                  </p>
                 </div>
-                <CardTitle className="text-2xl font-bold text-purple-100">Trippy Treats</CardTitle>
-                <CardDescription className="text-purple-300 italic">Delicious edible experiences</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-purple-200 text-center">Premium edibles for a controlled, enjoyable journey</p>
-                <div className="bg-purple-900/20 rounded-lg p-3 border border-purple-500/20">
-                  <h5 className="text-purple-100 font-semibold text-center mb-2">Pricing</h5>
-                  <div className="space-y-1 text-sm">
-                    <div className="flex justify-between text-purple-200">
-                      <span>1 Treat:</span>
-                      <span className="font-semibold text-green-400">$40</span>
-                    </div>
-                    <div className="flex justify-between text-purple-200">
-                      <span>3 Treats:</span>
-                      <span className="font-semibold text-green-400">$100</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
 
-            {/* Super Juice */}
-            <Card className="mushroom-card glow-effect border-2 border-pink-500/30 hover:border-pink-400/60 transition-all mushroom-card hover:scale-105 duration-1000 animate-float glow-effect">
-              <CardHeader className="text-center">
-                <div 
-                  className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden shadow-lg border-2 border-white/20 cursor-pointer hover:scale-110 transition-transform"
-                  onClick={() => setSelectedImage("/super juice.jpeg")}
-                >
-                  <LazyImage 
-                    src="/super juice.jpeg" 
-                    alt="Super Juice"
-                    className="w-full h-full object-cover"
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {specialtyProducts.map((product, index) => (
+                    <Card 
+                      key={product.id} 
+                      className={`mushroom-card hover:scale-105 transition-all duration-1000 animate-float glow-effect border-2 border-pink-500/30 hover:border-pink-400/60`}
+                      style={{ animationDelay: `${index * 0.2}s` }}
+                    >
+                      <CardHeader className="text-center">
+                        {product.image ? (
+                          <div 
+                            className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden shadow-lg border-2 border-white/20 cursor-pointer hover:scale-110 transition-transform"
+                            onClick={() => setSelectedImage(product.image)}
+                          >
+                            <LazyImage 
+                              src={product.image} 
+                              alt={product.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-pink-500/20 to-purple-500/20 flex items-center justify-center border-2 border-dashed border-pink-500/50">
+                            <span className="text-xs text-pink-400 text-center px-2">COMING<br/>SOON</span>
+                          </div>
+                        )}
+                        <CardTitle className="text-2xl font-bold text-purple-100">{product.name}</CardTitle>
+                        <CardDescription className="text-purple-300 italic">{product.scientific}</CardDescription>
+                      </CardHeader>
+                      
+                      <CardContent className="space-y-4">
+                        <p className="text-purple-200 text-center">{product.description}</p>
+                        
+                        <div className="flex justify-center gap-2">
+                          <Badge className={`${getPotencyColor(product.potency)} text-white font-semibold`}>
+                            {product.potency} Potency
+                          </Badge>
+                          <Badge className={`${getTierColor(product.tier)} text-white font-semibold`}>
+                            {product.tier}
+                          </Badge>
+                        </div>
+                        
+                        <div className="text-center">
+                          <p className="text-purple-300 font-semibold">
+                            Duration: {product.duration}
+                          </p>
+                        </div>
+
+                        {product.pricing && (
+                          <div className="bg-purple-900/20 rounded-lg p-3 border border-purple-500/20">
+                            <h5 className="text-purple-100 font-semibold text-center mb-2">Pricing</h5>
+                            <div className="grid grid-cols-1 gap-2 text-sm">
+                              {Object.entries(product.pricing).map(([quantity, price]) => (
+                                <div key={quantity} className="flex justify-between text-purple-200">
+                                  <span>{quantity}:</span>
+                                  <span className="font-semibold text-green-400">{price}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        <div className="space-y-2">
+                          <h4 className="text-purple-100 font-semibold text-center">Effects:</h4>
+                          <div className="flex flex-wrap gap-2 justify-center">
+                            {product.effects?.map((effect, i) => (
+                              <Badge key={i} variant="outline" className="text-pink-300 border-pink-300/50">
+                                {effect}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
-                <CardTitle className="text-2xl font-bold text-purple-100">Super Juice</CardTitle>
-                <CardDescription className="text-purple-300 italic">Concentrated liquid experience</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-purple-200 text-center">Potent liquid form for precise dosing and fast onset</p>
-                <div className="bg-purple-900/20 rounded-lg p-3 border border-purple-500/20">
-                  <h5 className="text-purple-100 font-semibold text-center mb-2">Pricing</h5>
-                  <div className="space-y-1 text-sm">
-                    <div className="flex justify-between text-purple-200">
-                      <span>1 Bottle:</span>
-                      <span className="font-semibold text-green-400">$30</span>
-                    </div>
-                    <div className="flex justify-between text-purple-200">
-                      <span>3 Bottles:</span>
-                      <span className="font-semibold text-green-400">$60</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+              </div>
+            )}
+          </>
+        )}
 
         <div className="text-center mt-16">
           <div className="inline-block p-6 rounded-2xl bg-purple-900/30 border border-purple-500/30 glow-effect">

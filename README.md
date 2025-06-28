@@ -1,4 +1,14 @@
-# Welcome to your Lovable project
+# Shroom Trip Web Portal
+
+A psychedelic mushroom dispensary website with an admin system for managing menu items.
+
+## Features
+
+- **Interactive 3D Experience**: Psychedelic landing page with Three.js animations
+- **Dynamic Menu Management**: Admin system to add, edit, and remove mushroom varieties
+- **Authentication**: Secure admin access using Clerk
+- **Responsive Design**: Mobile-friendly interface
+- **Real-time Updates**: Menu changes reflect immediately on the public site
 
 ## Project info
 
@@ -36,6 +46,29 @@ npm i
 npm run dev
 ```
 
+## Real-time Admin System with Supabase
+
+This project includes a complete real-time admin system for managing mushroom menu items with **Supabase PostgreSQL database**.
+
+### 🚀 **New Features:**
+- ✅ **Real-time updates** across all devices and users
+- ✅ **PostgreSQL database** with automatic backups
+- ✅ **Multi-admin collaboration** 
+- ✅ **Instant menu synchronization**
+- ✅ **Row-level security** for data protection
+
+### Quick Setup:
+
+1. **Set up Clerk authentication** (see [ADMIN_SETUP.md](./ADMIN_SETUP.md))
+2. **Set up Supabase database** (see [SUPABASE_SETUP.md](./SUPABASE_SETUP.md))
+3. **Update your `.env` file** with both Clerk and Supabase credentials
+4. **Run the database schema** in Supabase SQL Editor
+5. **Start the dev server** and enjoy real-time admin features!
+
+### 📚 **Detailed Guides:**
+- **[ADMIN_SETUP.md](./ADMIN_SETUP.md)** - Clerk authentication setup
+- **[SUPABASE_SETUP.md](./SUPABASE_SETUP.md)** - Database and real-time setup
+
 **Edit a file directly in GitHub**
 
 - Navigate to the desired file(s).
@@ -54,11 +87,13 @@ npm run dev
 
 This project is built with:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Frontend**: Vite, TypeScript, React
+- **UI Components**: shadcn-ui, Tailwind CSS
+- **3D Graphics**: Three.js, React Three Fiber
+- **Authentication**: Clerk
+- **Forms**: React Hook Form, Zod validation
+- **Routing**: React Router
+- **State Management**: React Context + useReducer
 
 ## How can I deploy this project?
 

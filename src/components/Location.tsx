@@ -58,7 +58,7 @@ export const Location = () => {
                       rel="noopener noreferrer"
                       className="text-cyan-400 hover:text-cyan-300 transition-colors"
                     >
-                      @mush.ees
+                      @mushees
                     </a>
                   </div>
                 </div>
@@ -72,12 +72,12 @@ export const Location = () => {
                   <div>
                     <h4 className="text-white font-semibold mb-1">Instagram</h4>
                     <a 
-                      href="https://www.instagram.com/mush.ees?igsh=MXF3dHhoMTBhM2trbQ=="
+                      href="https://www.instagram.com/mushees"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-cyan-400 hover:text-cyan-300 transition-colors"
                     >
-                      @mush.ees
+                      @mushees
                     </a>
                   </div>
                 </div>

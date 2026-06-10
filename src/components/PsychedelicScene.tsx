@@ -91,7 +91,7 @@ export const PsychedelicScene = () => {
           </svg>
         </a>
         <a
-          href="https://www.instagram.com/mush.ees?igsh=MXF3dHhoMTBhM2trbQ=="
+          href="https://www.instagram.com/mushees"
           target="_blank"
           rel="noopener noreferrer"
           className="w-12 h-12 bg-black/50 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center hover:bg-black/70 transition-all hover:scale-110 touch-manipulation active:scale-95"

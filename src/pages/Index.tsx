@@ -85,10 +85,10 @@ const Index = () => {
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                       <path d={siFacebook.path} />
                     </svg>
-                    <span className="text-sm">@mush.ees</span>
+                    <span className="text-sm">@mushees</span>
                   </a>
                   <a
-                    href="https://www.instagram.com/mush.ees?igsh=MXF3dHhoMTBhM2trbQ=="
+                    href="https://www.instagram.com/mushees"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center space-x-3 text-gray-300 hover:text-cyan-400 transition-colors"
@@ -96,7 +96,7 @@ const Index = () => {
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                       <path d={siInstagram.path} />
                     </svg>
-                    <span className="text-sm">@mush.ees</span>
+                    <span className="text-sm">@mushees</span>
                   </a>
                 </div>
               </div>

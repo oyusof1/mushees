@@ -126,7 +126,7 @@ export const MushroomMenu = () => {
               {mushroomVarieties.map((mushroom, index) => (
             <Card 
               key={mushroom.id} 
-              className={`mushroom-card hover:scale-105 transition-all duration-1000 animate-float glow-effect border-2 ${!mushroom.image ? 'border-yellow-500/40 hover:border-yellow-400/60' : 'border-purple-500/30 hover:border-purple-400/60'} ${!mushroom.image ? 'opacity-95' : ''}`}
+              className={`mushroom-card hover:scale-105 transition-all duration-1000 glow-effect border-2 ${!mushroom.image ? 'border-yellow-500/40 hover:border-yellow-400/60' : 'border-purple-500/30 hover:border-purple-400/60'} ${!mushroom.image ? 'opacity-95' : ''}`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               <CardHeader className="text-center">
@@ -251,7 +251,7 @@ export const MushroomMenu = () => {
                   {specialtyProducts.map((product, index) => (
                     <Card 
                       key={product.id} 
-                      className={`mushroom-card hover:scale-105 transition-all duration-1000 animate-float glow-effect border-2 border-pink-500/30 hover:border-pink-400/60`}
+                      className={`mushroom-card hover:scale-105 transition-all duration-1000 glow-effect border-2 border-pink-500/30 hover:border-pink-400/60`}
                       style={{ animationDelay: `${index * 0.2}s` }}
                     >
                       <CardHeader className="text-center">
